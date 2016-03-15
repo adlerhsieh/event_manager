@@ -1,0 +1,4 @@
+<% @attendees.each do |a| %>
+  <%= link_to a.id, event_attendee_path(@event, a) %>
+<% end %>
+<%= link_to "New", new_event_attendee_path(@event) %>

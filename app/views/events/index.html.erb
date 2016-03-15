@@ -1,0 +1,11 @@
+<% @events.each do |e| %>
+    <h3><%= e.name %></h3>
+    Category: <%= e.category.try(:name) %>
+    <p>
+      <%= link_to 'edit', edit_event_path(e) %>
+      <%= link_to 'location', event_location_path(e) %>
+    </p>
+    <hr />
+<% end %>
+
+<%= link_to 'New Event', new_event_path %>
