@@ -1,6 +1,12 @@
 <% @events.each do |e| %>
     <h3><%= e.name %></h3>
-    Category: <%= e.category.try(:name) %>
+    <p>Category: <%= e.category.try(:name) %></p>
+    <p>Location: <%= e.location.try(:address) %></p>
+    <p>Group:
+      <% e.groups.each do |g| %>
+        <%= g.name %>
+      <% end %>
+    </p>
     <p>
       <%= link_to 'edit', edit_event_path(e) %>
       <%= link_to 'location', event_location_path(e) %>
