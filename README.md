@@ -10,11 +10,19 @@ start do |i|
 end
 
 (1..10).each do |n|
-puts n
+  puts n
+end
+
+resources :events do
+  resource :location
+end
+
+Rails::Application.configure do |config|
+  config.time_zone = 'Asia/Taipei'
 end
 
 <% @attendees.each do |attendee| %>
-<%= attendee.name %>
+  <%= attendee.name %>
 <% end %>
 ```
 
