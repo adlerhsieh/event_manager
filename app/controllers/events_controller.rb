@@ -1,5 +1,5 @@
 class EventsController < ApplicationController
-  before_action :find_event, only: [:show, :edit, :update]
+  before_action :find_event, only: [:show, :edit, :update, :dashboard, :join, :withdraw]
 
   def index
     @events = Event.all
@@ -10,11 +10,34 @@ class EventsController < ApplicationController
   end
 
   def edit
-    
+
   end
 
   def show
-    
+
+  end
+
+  def latest
+    @events = Event.order(:created_at).limit(2)
+  end
+
+  def join
+    Membership.find_or_create_by(:event => @event, :user => current_user)
+    redirect_to :back
+  end
+
+  def withdraw
+    @membership = Membership.find_by(:event => @event, :user => current_user)
+    @membership.destroy if @membership
+    redirect_to :back
+  end
+
+  def bulk_delete
+    Event.destroy_all
+    redirect_to events_path
+  end
+
+  def dashboard
   end
 
   def create
@@ -36,11 +59,15 @@ class EventsController < ApplicationController
 
   private
 
-    def find_event
-      @event = Event.find(params[:id])
-    end
+  def find_event
+    @event = Event.find(params[:id])
+  end
 
-    def event_params
-      params.require(:event).permit(:name, :description, :category_id, :location_attributes => [:id, :name, :_destroy], :group_ids => [] )
-    end
+  def event_params
+    params.require(:event).permit(:name, :description, :category_id, :location_attributes => [:id, :name, :_destroy], :group_ids => [] )
+  end
+
+  def current_user
+    User.first
+  end
 end

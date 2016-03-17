@@ -1,3 +1,9 @@
 <h3><%= @event.name %></h3>
+<% @event.users.each do |user| %>
+  <p><%= user.username %></p>
+<% end %>
+
+<p><%= button_to "Join", join_event_path(@event) %></p>
+<p><%= button_to "Withdraw", withdraw_event_path(@event) %></p>
 
 <%= link_to "Back", events_path %>
