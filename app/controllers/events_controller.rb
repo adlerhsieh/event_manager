@@ -2,7 +2,17 @@ class EventsController < ApplicationController
   before_action :find_event, only: [:show, :edit, :update, :dashboard, :join, :withdraw]
 
   def index
-    @events = Event.all
+    if params[:search]
+      @events = Event.where("name LIKE ?", "%#{params[:search]}%")
+    else
+      @events = Event.all
+    end
+    # if params[:order] == 'name'
+    #   sort_by = 'name'
+    # else
+    #   sort_by = 'created_at'
+    # end
+    # @events = Event.order(sort_by)
   end
 
   def new
