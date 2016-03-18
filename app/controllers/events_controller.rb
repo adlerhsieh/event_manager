@@ -1,5 +1,6 @@
 class EventsController < ApplicationController
   before_action :find_event, only: [:show, :edit, :update, :dashboard, :join, :withdraw]
+  before_action :authticate_user!, only: [:new, :edit]
 
   def index
     if params[:search]
@@ -75,9 +76,5 @@ class EventsController < ApplicationController
 
   def event_params
     params.require(:event).permit(:name, :description, :category_id, :location_attributes => [:id, :name, :_destroy], :group_ids => [] )
-  end
-
-  def current_user
-    User.first
   end
 end
