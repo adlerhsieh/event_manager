@@ -1,5 +1,9 @@
 class Event < ActiveRecord::Base
-  has_many :attendees, -> { where("name LIKE ?", "%as%") } , dependent: :destroy
+  scope :view, Proc.new{|view_count| where("view > ?", view_count) }
+  scope :sum_view, -> { sum(:view) }
+  scope :search, lambda {|term| where("name LIKE ?", "%#{term}%") }
+
+  has_many :attendees, dependent: :destroy
   has_one :location
   has_many :groups, through: :event_groups
   has_many :event_groups
@@ -8,4 +12,6 @@ class Event < ActiveRecord::Base
 
   has_many :users, through: :memberships
   has_many :memberships
+
+  # validates :name, presence: true
 end
