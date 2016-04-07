@@ -1,0 +1,7 @@
+$("#events-page").html(
+  "<%= escape_javascript(render @events) %>"
+);
+
+$("#events-pagination").html(
+  "<%= escape_javascript(paginate @events, remote: true) %>"
+);
