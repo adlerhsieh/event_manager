@@ -1,7 +1,8 @@
 class EventsController < ApplicationController
-  before_action :find_event, only: [:show, :edit, :update, :dashboard, :join, :withdraw]
+  before_action :find_event, only: [:show, :edit, :update, :dashboard, :join, :withdraw, :destroy]
 
       def index
+         @page   = params[:page] ||= "1"
          @events = Event.includes(:groups, :location, :category).all
          @events.search(params[:search]) if params[:search]
          @events = @events.page(params[:page]).per(5)
@@ -62,6 +63,12 @@ class EventsController < ApplicationController
         else
           render action: :edit
         end
+      end
+
+      def destroy
+        @event.destroy
+        flash[:notice] = "No. #{@event.id} is destroyed."
+        redirect_to events_path(page: params[:page])
       end
 
       private

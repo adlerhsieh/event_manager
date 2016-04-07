@@ -7,8 +7,8 @@
     <%= csrf_meta_tags %>
   </head>
   <body>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
+    <h2 style="color: blue" class="notice"><%= notice %></h2>
+    <h2 style="color: red"class="alert"><%= alert %></h2>
 
     <% if current_user %>
       <%= link_to('登出', destroy_user_session_path, :method => :delete) %> |

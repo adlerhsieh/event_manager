@@ -2,8 +2,7 @@
 <p class="indent">Category: <%= event.category.try(:name) %></p>
 <p class="indent">Location: <%= event.location.try(:address) %></p>
 <p class="indent">
-<%= link_to 'edit', edit_event_path(event) %>, 
-<%= link_to 'location', event_location_path(event) %>, 
-<%= link_to 'Dashboard', dashboard_event_path(event) %>
+  <%= link_to 'Edit', edit_event_path(event) %>, 
+  <%= link_to 'Delete', event_path(id: event.id, page: @page), method: :delete %>
 </p>
 <hr />
