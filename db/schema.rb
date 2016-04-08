@@ -11,7 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160407035822) do
+ActiveRecord::Schema.define(version: 20160408040338) do
+
+  create_table "agencies", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "attendees", force: :cascade do |t|
     t.integer  "event_id"
@@ -26,6 +32,12 @@ ActiveRecord::Schema.define(version: 20160407035822) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "clients", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "event_groups", force: :cascade do |t|
     t.integer  "event_id"
     t.integer  "group_id"
@@ -35,12 +47,14 @@ ActiveRecord::Schema.define(version: 20160407035822) do
 
   create_table "events", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
     t.integer  "category_id"
     t.integer  "view"
     t.boolean  "public"
-    t.string   "foo",         default: "0"
+    t.string   "foo",             default: "0"
+    t.integer  "master_id"
+    t.integer  "attendees_count"
   end
 
   add_index "events", ["name"], name: "index_events_on_name"
@@ -63,6 +77,14 @@ ActiveRecord::Schema.define(version: 20160407035822) do
     t.integer  "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "receipts", force: :cascade do |t|
+    t.integer  "price"
+    t.string   "receiver_type"
+    t.integer  "receiver_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
   create_table "users", force: :cascade do |t|

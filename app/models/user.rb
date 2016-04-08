@@ -5,4 +5,5 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
   has_many :events, through: :memberships
   has_many :memberships
+  has_many :receipts, as: :receiver
 end
