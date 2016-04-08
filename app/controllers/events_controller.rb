@@ -5,7 +5,7 @@ class EventsController < ApplicationController
          @page   = params[:page] ||= "1"
          @events = Event.includes(:groups, :location, :category).all
          @events.search(params[:search]) if params[:search]
-         @events = @events.page(params[:page]).per(5)
+         @events = @events.page(@page).per(5)
 
          respond_to do |format|
            format.html
